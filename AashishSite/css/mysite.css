@@ -1,0 +1,124 @@
+body{
+    margin : 0px;
+    text-align: center;
+    font-family: 'Merriweather', serif;
+}
+
+.box1{
+    padding-top : 100px;
+    background-color: #E3FDFD;
+    position: relative;
+}
+
+#firstCloud{  
+    position: absolute;  
+    right : 300px;
+    top : 60px;
+    
+}
+#secondCloud{
+    position : absolute;
+    left : 200px;
+}
+h1{
+    font-family: 'Sacramento', cursive;
+    color : #66bfbf;
+    margin: 100px auto 0 auto;
+    line-height: 1.2;
+    
+}
+.name{
+    font-size : 5.625rem;
+}
+h2{
+    /* font-family: 'Montserrat Alternates', sans-serif; */
+    color : #66bfbf;
+    font-size : 2.5rem;
+    margin : 20px auto;
+}
+h3{
+    margin : 20px auto;
+    color : #11999e;
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-size: 1.5rem;
+    font-weight: normal;
+}
+p{
+    font-family: 'Roboto Slab', serif;
+    color : #40514E
+}
+.mountainImage{
+    margin : 0px auto 0px auto;
+    display : block;
+}
+.profilePhoto{
+    width : 12%;
+    margin : 60px auto 30px auto;
+}
+
+.skill-row{
+    width : 50%;
+    margin : 100px auto;
+    text-align: left;
+    line-height: 2;
+}
+.cp{
+    float : left;
+    width : 20%;
+    margin-right : 30px;
+}
+.webDev{
+    float : right;
+    margin-left : 30px;
+    border-radius: 100%;
+    width : 25%;
+}
+
+hr{
+    margin : 100px auto;
+    border-style: none;
+    border-top : 10px;
+    border-top-style : dotted;
+    border-color: rgba(59, 58, 58, 0.4);
+    width: 10%;
+}
+.mySkill{
+    margin : 0px;
+}
+
+.contactMe{
+    background-color: #11999e;
+    border-radius: 10%;
+    height:2rem;
+    color : white;
+    width : 9rem;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    margin : 50px auto;
+    font-size : 1rem;
+    border-style: none;
+}
+
+.box3{
+    box-sizing: border-box;
+    background-color: #66bfbf;
+    height: 9.375rem;
+    padding : 3rem;
+}
+
+a{
+    color : #11999e;
+    text-decoration : none;
+    margin : 30px 10px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+a:hover{
+    color : white;
+}
+.footer-link{
+    padding : 20px;
+}
+.copyright{
+    color : white;
+    font-size: 0.8rem;
+    padding-top : 15px;
+}
