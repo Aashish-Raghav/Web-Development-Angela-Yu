@@ -36,6 +36,7 @@ const userSchema = new mongoose.Schema({
     email : String,
     password : String
 });
+
 //level 2.....
 // userSchema.plugin(encrypt,{secret : process.env.SECRET,encryptedFields : ['password']});
 //level 5.....
