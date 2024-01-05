@@ -36,9 +36,10 @@ app.use(passport.session());
 
 mongoose.connect("mongodb://localhost:27017/AuthDB");
 const userSchema = new mongoose.Schema({
-    email : String,
+    username : String,
     password : String,
-    googleId : String
+    googleId : String,
+    secret : String
 });
 
 //level 2.....
@@ -70,7 +71,7 @@ passport.use(new GoogleStrategy({
     userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
   },
   function(accessToken, refreshToken, profile, cb) {
-    console.log(profile);
+    // console.log(profile);
     User.findOrCreate({ googleId: profile.id }, function (err, user) {
       return cb(err, user);
     });
@@ -98,12 +99,18 @@ app.get("/login",(req,res)=>{
 })
 
 app.get("/secrets",(req,res)=>{
-    if (req.isAuthenticated()){
-        res.render("secrets");
-    }
-    else{
-        res.redirect("/login");
-    }
+    User.find({secret : {$ne : null}}).then((foundUsers)=>{
+        if (foundUsers){
+            res.render("secrets",{secretArr : foundUsers});
+        }
+        else{
+            res.render("secrets",{secretArr : []});
+        }
+    })
+    .catch(err=>{
+        console.log(err);
+        res.send(err);
+    })
 })
 
 app.get("/logout",(req,res)=>{
@@ -117,8 +124,35 @@ app.get("/logout",(req,res)=>{
     });
 })
 
+app.get("/submit",(req,res)=>{
+    if (req.isAuthenticated()){
+        res.render("submit");
+    }
+    else{
+        res.redirect("/login");
+    }
+});
+
+app.post("/submit",(req,res)=>{
+    const secret = req.body.secret;
+    User.findById(req.user.id).then((foundUser)=>{
+        foundUser.secret = req.body.secret;
+        foundUser.save().then((savedDoc)=>{
+            res.redirect("/secrets");
+        })
+        .catch(err=>{
+            console.log(err);
+            res.redirect("/submit");
+        });
+    })
+    .catch(err=>{
+        console.log(err);
+        res.redirect("/submit");
+    })
+});
+
 app.post("/register",(req,res)=>{
-    console.log(req.body);
+    // console.log(req.body);
     //level 5.......
 
     User.register({username : req.body.username},req.body.password,(err,user)=>{
@@ -137,7 +171,7 @@ app.post("/register",(req,res)=>{
     // bcrypt.hash(req.body.password,saltRounds,(err,hash)=>{
     //     if (!err){
     //         const newUser = new User({
-    //             email : req.body.username,
+    //             username : req.body.username,
     //             password : hash
     //         });
     //         newUser.save().then((savedCredential)=>{
@@ -159,7 +193,7 @@ app.post("/register",(req,res)=>{
 
     //level 3........
     // const newUser = new User({
-    //     email : req.body.username,
+    //     username : req.body.username,
     //     password : md5(req.body.password)
     // });
 
@@ -176,7 +210,7 @@ app.post("/login",(req,res)=>{
     });
 
     //Level 4 ......
-    // User.findOne({email : req.body.username}).then((foundUser)=>{
+    // User.findOne({username : req.body.username}).then((foundUser)=>{
     //     if(foundUser){
     //         bcrypt.compare(req.body.password,foundUser.password,(err,result)=>{
     //             if (result == true){
